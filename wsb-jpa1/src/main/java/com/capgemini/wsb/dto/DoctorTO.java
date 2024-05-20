@@ -1,37 +1,25 @@
-package com.capgemini.wsb.persistence.entity;
+package com.capgemini.wsb.dto;
 
 import com.capgemini.wsb.persistence.enums.Specialization;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
-@Table(name = "DOCTOR")
-public class DoctorEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DoctorTO implements Serializable {
+
     private Long id;
 
-    @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
     private String telephoneNumber;
 
     private String email;
 
-    @Column(nullable = false)
     private String doctorNumber;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private Specialization specialization;
-
-    @OneToOne
-    private AddressEntity Address;
 
     public Long getId() {
         return id;
@@ -89,11 +77,4 @@ public class DoctorEntity {
         this.specialization = specialization;
     }
 
-    public AddressEntity getAddress() {
-        return Address;
-    }
-
-    public void setAddress(AddressEntity address) {
-        Address = address;
-    }
 }

@@ -1,43 +1,31 @@
-package com.capgemini.wsb.persistence.entity;
+package com.capgemini.wsb.dto;
 
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 
-import javax.persistence.*;
+public class PatientTO implements Serializable {
 
-@Entity
-@Table(name = "PATIENT")
-public class PatientEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
     private String telephoneNumber;
 
     private String email;
 
-    @Column(nullable = false)
     private String patientNumber;
 
-    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    private AddressTO address;
+
     private float weight;
 
-    @OneToOne
-    private AddressEntity address;
-
-    @OneToMany(mappedBy = "patient", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Collection<VisitEntity> visits;
+    private Collection<VisitTO> visits;
 
     public Long getId() {
         return id;
@@ -95,19 +83,19 @@ public class PatientEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public AddressEntity getAddress() {
+    public AddressTO getAddress() {
         return address;
     }
 
-    public void setAddress(AddressEntity address) {
+    public void setAddress(AddressTO address) {
         this.address = address;
     }
 
-    public Collection<VisitEntity> getVisits() {
+    public Collection<VisitTO> getVisits() {
         return visits;
     }
 
-    public void setVisits(Collection<VisitEntity> visits) {
+    public void setVisits(Collection<VisitTO> visits) {
         this.visits = visits;
     }
 

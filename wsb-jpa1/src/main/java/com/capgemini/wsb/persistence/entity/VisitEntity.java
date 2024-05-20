@@ -1,49 +1,77 @@
 package com.capgemini.wsb.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "VISIT")
 public class VisitEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String description;
+    private String description;
 
-	@Column(nullable = false)
-	private LocalDateTime time;
+    @Column(nullable = false)
+    private LocalDateTime time;
 
-	public Long getId() {
-		return id;
-	}
+    @ManyToOne(optional = false)
+    private DoctorEntity doctor;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @ManyToOne(optional = false)
+    private PatientEntity patient;
 
-	public String getDescription() {
-		return description;
-	}
+    @OneToMany(mappedBy = "visit", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Collection<MedicalTreatmentEntity> medicalTreatments;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public LocalDateTime getTime() {
-		return time;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setTime(LocalDateTime time) {
-		this.time = time;
-	}
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public DoctorEntity getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorEntity doctor) {
+        this.doctor = doctor;
+    }
+
+    public PatientEntity getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientEntity patient) {
+        this.patient = patient;
+    }
+
+    public Collection<MedicalTreatmentEntity> getMedicalTreatments() {
+        return medicalTreatments;
+    }
+
+    public void setMedicalTreatments(Collection<MedicalTreatmentEntity> medicalTreatments) {
+        this.medicalTreatments = medicalTreatments;
+    }
 }
